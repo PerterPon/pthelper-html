@@ -1,38 +1,56 @@
-.App {
-  text-align: center;
+.logo {
+  height: 60px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#components-layout-demo-side .logo {
+  height: 32px;
+  margin: 16px;
+  /* background: rgba(255, 255, 255, 0.3); */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.ant-layout-content {
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.item {
+  font-size: 30px;
 }
 
-.App-link {
-  color: #61dafb;
+.item-title {
+  font-size: 30px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.item-value {
+  margin-left: 50px;
+  font-size: 40px;
+}
+
+.line-chart-container {
+  margin-top: 100px;
+}
+
+.site-header {
+  text-align: right;
+}
+
+.site-header .avatar {
+  margin-right: 20px;
+}
+
+.users-ov-row .users-ov-item {
+  margin-left: 10px;
+  margin-top: 16px
+}
+
+.users-ov-row .users-ov-item .users-ov-item-value {
+  margin-left: 5px;
+  font-weight: 900;
+}
+
+.log-container {
+  white-space: pre-wrap;
+}
+
+.line-chart-container {
+  margin-top: 10px;
 }
