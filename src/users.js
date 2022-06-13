@@ -37,7 +37,7 @@ const columns = [{
 }];
 
 function renderOverview(item) {
-  const { nickname, paid, serverIds, site, uid, vip, uploadCount, proxyAddr, increaseRate } = item;
+  const { done, nickname, paid, serverIds, site, uid, vip, uploadCount, proxyAddr, increaseRate } = item;
   return (
     <div>
       <div className='users-ov-row'>
@@ -52,14 +52,14 @@ function renderOverview(item) {
         </Tag>
       </div>
       <div className='users-ov-row'>
+        <Tag className='users-ov-item' color={true === done ? 'green' : 'orange'}>done:
+          <span className='user-ov-item-value' >{String(done)}</span>
+        </Tag>
         <Tag className='users-ov-item'>vip: 
           <span className='users-ov-item-value'>{vip}</span>
         </Tag>
-        <Tag className='users-ov-item'>paid: 
+        <Tag className='users-ov-item' color='green'>paid: 
           <span className='users-ov-item-value'>{paid}</span>
-        </Tag>
-        <Tag className='users-ov-item'>upload count: 
-          <span className='users-ov-item-value'>{uploadCount}</span>
         </Tag>
       </div>
       <div className='users-ov-row'>
@@ -80,10 +80,25 @@ function renderOverview(item) {
 }
 
 function renderProgress(item) {
-  const { uploadCount, totalUpload } = item;
+  const { uploadCount, totalUpload, latestSiteData } = item;
+  const { downloadCount, uploadCount: realUpload, shareRatio } = latestSiteData;
   return (
     <div>
       <Progress percent={ Math.floor(totalUpload / uploadCount * 100) }></Progress>
+      <div className='users-ov-row'>
+        <Tag className='users-ov-item'>
+          ↑:
+          <span className='users-ov-item-value'>{realUpload}T</span>
+        </Tag>
+        <Tag className='users-ov-item'>
+          ↓: 
+          <span className='users-ov-item-value'>{downloadCount}T</span>
+        </Tag>
+        <Tag className='users-ov-item'>
+          ↕: 
+          <span className='users-ov-item-value'>{shareRatio}</span>
+        </Tag>
+      </div>
       <div className='users-ov-row'>
         <Tag className='users-ov-item'>
           totalUpload: 

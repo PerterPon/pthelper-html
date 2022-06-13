@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 
-const host = 'http://127.0.0.1:8081/api'
+const host = 'http://127.0.0.1:8081/api';
 
 export async function requestData(method, params) {
 

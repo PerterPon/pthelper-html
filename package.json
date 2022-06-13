@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && rm -rf /Users/pon/project/hdchina-helper/html/* && cp -r ./build/* /Users/pon/project/hdchina-helper/html/",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
