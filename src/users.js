@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { requestData } from './request';
-import { Descriptions, Progress, Button, Space, Table, Tag, Modal } from 'antd';
+import { Descriptions, Progress, Button, message, Space, Table, Tag, Modal } from 'antd';
 import LinkChart from './line-chart';
 import fileSize from 'filesize';
 import LineChart from './line-chart';
@@ -37,7 +37,7 @@ const columns = [{
 }];
 
 function renderOverview(item) {
-  const { done, nickname, paid, serverIds, site, uid, vip, uploadCount, proxyAddr, increaseRate } = item;
+  const { done, nickname, paid, scraperServer, serverIds, site, uid, vip, uploadCount, proxyAddr, increaseRate } = item;
   return (
     <div>
       <div className='users-ov-row'>
@@ -63,6 +63,9 @@ function renderOverview(item) {
         </Tag>
       </div>
       <div className='users-ov-row'>
+        <Tag className='users-ov-item' color="cyan">server:
+          <span className='users-ov-item-value'>{scraperServer}</span>
+        </Tag>
         <Tag className='users-ov-item'>server ids: 
           <span className='users-ov-item-value'>{serverIds}</span>
         </Tag>
@@ -169,11 +172,31 @@ function renderTrend(item) {
   );
 }
 
+async function onChangeServer(item) {
+  const serverId = window.prompt();
+  const { uid, site } = item;
+  await requestData('updateScraper', {
+    serverId, uid, site
+  });
+  message.success('success!');
+}
+
+async function onDelete(item) {
+  const { nickname, uid, site } = item;
+  const res = window.confirm(`do you want to delete user: [${nickname}]`);
+  if (false === res) {
+    return;
+  }
+  await requestData('deleteUser', { uid, site });
+}
+
 function renderOperate(item) {
   return (
     <div>
       <Space size="middle">
         <Button onClick={ () => onViewUserLog(item)} type="link">View Log</Button>
+        <Button onClick={() => onChangeServer(item)} type="link">Scraper</Button>
+        <Button onClick={() => onDelete(item)} type="link">Delete</Button>
       </Space>
     </div>
   );
