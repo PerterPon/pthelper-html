@@ -83,7 +83,10 @@ function renderOverview(item) {
 }
 
 function renderProgress(item) {
-  const { uploadCount, totalUpload, latestSiteData } = item;
+  let { uploadCount, totalUpload, latestSiteData, } = item;
+  uploadCount = uploadCount || 0;
+  totalUpload = totalUpload || 0;
+  latestSiteData = latestSiteData || { downloadCount: 0, uploadCount: 0, shareRatio: 0 };
   const { downloadCount, uploadCount: realUpload, shareRatio } = latestSiteData;
   return (
     <div>
