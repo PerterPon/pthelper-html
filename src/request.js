@@ -2,8 +2,7 @@
 import axios from 'axios';
 import { message as messageLib } from 'antd';
 
-// const host = 'http://127.0.0.1:8081/api';
-const host = '/api';
+const host = 'http://hk.perterpon.com/api';
 
 export async function requestData(method, params) {
 

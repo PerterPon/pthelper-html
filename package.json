@@ -13,6 +13,7 @@
     "filesize": "^9.0.1",
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
+    "ocr-space-api-wrapper": "^2.1.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",

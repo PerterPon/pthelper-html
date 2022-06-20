@@ -1,9 +1,9 @@
 
 import {
-  DesktopOutlined,
-  FileOutlined,
   PieChartOutlined,
-  TeamOutlined,
+  HomeOutlined,
+  EditOutlined,
+  CloudServerOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import { Avatar, Breadcrumb, Layout, Menu, Image } from 'antd';
@@ -12,8 +12,8 @@ import './App.css';
 
 import Portal from './portal';
 import Users from './users';
-import UserLog from './user-log';
 import Servers from './servers';
+import UserDetail from './user-detail';
 
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
@@ -26,15 +26,38 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-  getItem('Portal', 'portal', <PieChartOutlined />),
-  getItem('Users', 'users', <DesktopOutlined />),
-  getItem('Servers', 'servers', <UserOutlined />),
+  getItem('Portal', 'portal', <HomeOutlined />),
+  getItem('Users', 'users', <UserOutlined />),
+  getItem('Servers', 'servers', <CloudServerOutlined />),
+  getItem('Add User', 'userDetail', <EditOutlined />),
 ];
 
 const keyMap = {
   portal: <Portal></Portal>,
   users: <Users></Users>,
-  servers: <Servers></Servers>
+  servers: <Servers></Servers>,
+  userDetail: <UserDetail fields={[
+    {
+      name: 'increaseRate',
+      value: 1.13
+    }, 
+    {
+      name: 'bindServer',
+      value: '-1'
+    }, 
+    {
+      name: 'proxy',
+      value: false
+    }, 
+    {
+      name: 'proxyAddr',
+      value: 'http://hk.perterpon.com:4230'
+    }, 
+    {
+      name: 'cycleTime',
+      value: 10
+    },
+  ]}></UserDetail>
 };
 
 const defaultKey = 'users';

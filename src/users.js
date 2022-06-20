@@ -8,6 +8,7 @@ import fileSize from 'filesize';
 import LineChart from './line-chart';
 
 import UserLog from './user-log';
+import moment from 'moment';
 
 async function loadData() {
   const res = await requestData('allUserInfo');
@@ -149,27 +150,27 @@ function renderUpload(item) {
 
 function renderTrend(item) {
   const { serverData } = item;
-  const userData = [];
-  for (const item of serverData) {
-    const { gmt_create, upload_count, upload_speed } = item;
-    userData.push({ 
-      gmt_create, 
-      type: 'uploadCount',
-      data: upload_count
-    });
-    userData.push({ 
-      gmt_create, 
-      type: 'uploadSpeed',
-      data: upload_speed
-    });
-  }
+  // for (const item of serverData) {
+  //   console.log(moment(item.gmt_create).format('HH:mm'));
+  //   item.gmt_create = moment(item.gmt_create).format('HH:mm');
+  // }
   return (
     <div>
       <LineChart
-        data={userData} 
+        data={[serverData, serverData]} 
         xField={"gmt_create"}
-        yField={"data"}
-        seriesField={"type"}
+        yField={['upload_count', 'upload_speed']}
+        yaxis={[{
+          label: {
+            // 数值格式化为千分位
+            formatter: (v) => `${Number(v).toFixed(3)} TB`
+          }
+        }, {
+          label: {
+            // 数值格式化为千分位
+            formatter: (v) => `${Math.round(v / 1024 / 1024)} MB`
+          }
+        }]}
         height={200} />
     </div>
   );
