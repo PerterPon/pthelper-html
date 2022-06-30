@@ -46,22 +46,8 @@ export default (props) => {
         </Select>
       </Form.Item>
       <Form.Item
-        name="uid"
-        label="uid"
-        rules={[{required: true}]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
         name="cookie"
         label="cookie"
-        rules={[{required: true}]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="nickname"
-        label="nickname"
         rules={[{required: true}]}
       >
         <Input />

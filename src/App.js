@@ -83,7 +83,7 @@ const App = () => {
           }}
         >
           <Avatar className="avatar" src={
-            <Image src="http://cdn-pt.perterpon.com/tingting.jpg"></Image>
+            <Image src="http://cdn-pt.perterpon.com/html/logo.png"></Image>
           }></Avatar>
         </Header>
         <Content

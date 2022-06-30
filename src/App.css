@@ -27,7 +27,8 @@
 }
 
 .line-chart-container {
-  margin-top: 100px;
+  margin-top: 10px;
+  min-width: 300px;
 }
 
 .site-header {

@@ -30,7 +30,8 @@ const columns = [{
 }, {
   title: 'trend',
   key: 'trend',
-  render: renderTrend
+  render: renderTrend,
+  width: 600
 }, {
   title: 'operate',
   key: 'operate',
@@ -84,11 +85,21 @@ function renderOverview(item) {
 }
 
 function renderProgress(item) {
-  let { uploadCount, totalUpload, latestSiteData, } = item;
+  let { uploadCount, totalUpload, serverData, latestSiteData, } = item;
   uploadCount = uploadCount || 0;
   totalUpload = totalUpload || 0;
   latestSiteData = latestSiteData || { downloadCount: 0, uploadCount: 0, shareRatio: 0 };
   const { downloadCount, uploadCount: realUpload, shareRatio } = latestSiteData;
+  let eta = 0;
+  if (true === Array.isArray(serverData) && 2 <= serverData.length) {
+    const firstData = serverData[0];
+    const latestData = serverData[serverData.length - 1];
+    const timeDiff = (new Date(latestData.gmt_create)) - (new Date(firstData.gmt_create));
+    const uploadDiff = latestData.upload_count - firstData.upload_count;
+    const uploadRate = uploadDiff / timeDiff;
+    eta = (uploadCount - totalUpload) / uploadRate;
+    eta = Math.max(0, eta);
+  }
   return (
     <div>
       <Progress percent={ Math.floor(totalUpload / uploadCount * 100) }></Progress>
@@ -101,9 +112,11 @@ function renderProgress(item) {
           ↓: 
           <span className='users-ov-item-value'>{downloadCount}T</span>
         </Tag>
-        <Tag className='users-ov-item'>
-          ↕: 
-          <span className='users-ov-item-value'>{shareRatio}</span>
+      </div>
+      <div className='users-ov-row'>
+        <Tag className='users-ov-item' color={"green"}>
+          ETA: 
+          <span className='users-ov-item-value'>{(eta / 1000 / 60 / 60).toFixed(2)}H</span>
         </Tag>
       </div>
       <div className='users-ov-row'>
@@ -128,19 +141,19 @@ function renderUpload(item) {
     <div>
       <div className='users-ov-row'>
         <Tag className='users-ov-item'>
-          download count:
+          ↓:
           <span className='users-ov-item-value'>{fileSize(downloadCount || 0)}</span>
         </Tag>
       </div>
       <div className='users-ov-row'>
         <Tag className='users-ov-item'>
-          upload count:
+          ↑:
           <span className='users-ov-item-value'>{fileSize(uploadCount || 0)}</span>
         </Tag>
       </div>
       <div className='users-ov-row'>
         <Tag className='users-ov-item'>
-          increased count:
+          ↑↑:
           <span className='users-ov-item-value'>{fileSize(increasedCount || 0)}</span>
         </Tag>
       </div>
@@ -197,11 +210,15 @@ async function onDelete(item) {
 function renderOperate(item) {
   return (
     <div>
-      <Space size="middle">
+      <div className='users-ov-row'>
         <Button onClick={ () => onViewUserLog(item)} type="link">View Log</Button>
+      </div>
+      <div className='users-ov-row'>
         <Button onClick={() => onChangeServer(item)} type="link">Scraper</Button>
+      </div>
+      <div className='users-ov-row'>
         <Button onClick={() => onDelete(item)} type="link">Delete</Button>
-      </Space>
+      </div>
     </div>
   );
 }
