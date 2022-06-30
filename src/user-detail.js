@@ -43,6 +43,9 @@ export default (props) => {
           <Select.Option value="hdtime">hdtime</Select.Option>
           <Select.Option value="audiences">audiences</Select.Option>
           <Select.Option value="ourbits">ourbits</Select.Option>
+          <Select.Option value="pterclub">pterclub</Select.Option>
+          <Select.Option value="hdarea">hdarea</Select.Option>
+          <Select.Option value="pttime">pttime</Select.Option>
         </Select>
       </Form.Item>
       <Form.Item
